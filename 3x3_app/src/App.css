@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+.mainContrainer{
+  background-color: #393e46
+}
+
+.itemPadding {
+  padding: 15px 15px;
+}
+
+.wrapper {
+  display: table-cell;
+  vertical-align: bottom;
+  /* height: 300px; */
+}
+.content {
+  /* max-height: 800px; */
+  /* overflow: auto; */
+}
+
+
+.thicker {
+  /* color: #685206;  */
+  font-family: 'Helvetica Neue', 
+  sans-serif;
+  font-size: 34px;
+  line-height: 34px; 
+  margin: 0 0 11px; 
+  text-align: justify; 
+  text-justify: inter-word;
+}
