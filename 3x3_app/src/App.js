@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import './App.css';
+import './my-sass.scss';
 import { Contract, providers } from "ethers";
 import  NFT  from  "./abis/3x3_ABI.json";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+// import Confetti from "react-confetti";
 
 
 
@@ -11,34 +15,64 @@ function App() {
   //TODO: 1.Connect to the contract
   // NFT contract state variable
   const [NFTContract, setNFTContract] = useState(null);
-  const [totalSupply, setTotalSupply] = useState('0000');
-  // Initializing NFT Contract  
-  useEffect(()=>{
-    function initNFTContract() {
-      const provider = new providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
- 
-      setNFTContract(new Contract(NFT_CONTRACT_ADDRESS, NFT, signer));
-    }
-    initNFTContract(); 
-    getTotalSupplyValue();
-  }); 
+  const [mintTotalSupply, setMintTotalSupply] = useState(null);
+  const [myTimer, setMyTimer] = useState({
+    time: "",
+    date: ""
+  });
+  const [mintInfo, setMintInfo] = useState({
+    totalSupply: "",
+    maxSupply: ""
+  });
+    
 
-  async function getTotalSupplyValue() {
-    let tempTotalSupply;
-    try {
-      tempTotalSupply = await NFTContract.totalSupply();
-    } catch (e) {
-      console.log(e);
-    } finally {
-      if (tempTotalSupply != null){
-        setTotalSupply(tempTotalSupply.toString());
-      }
-    }
+  // Initializing NFT Contract  
+  
+  const initContract = async () => {
+    const provider = new providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    // setNFTContract(new Contract(NFT_CONTRACT_ADDRESS, NFT, signer));
+    const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT, signer);
+    const tempTotalSupply = await contract.totalSupply();
+    const tempMaxSupply = await contract.maxSupply();
+    // Store on use states
+    setNFTContract(contract);
+    setMintInfo({
+      totalSupply: tempTotalSupply.toString(),
+      maxSupply: tempMaxSupply.toString()
+    });
+    setMintTotalSupply(tempTotalSupply.toString());
   }
 
-  //TODO: 2.Make a countdown
+  useEffect(() => {
+    initContract();
+  }, []);
 
+  //TODO: 2.Make a countdown
+  // Convert the datetime to the accurate datetime
+
+  var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  var timerID = setInterval(updateTime, 1000);
+  // updateTime();
+  function updateTime() {
+      var cd = new Date();
+
+      let clockTime = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
+      let clockDate = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
+
+      setMyTimer({
+        clockTime,
+        clockDate
+        });
+  };
+
+  function zeroPadding(num, digit) {
+      var zero = '';
+      for(var i = 0; i < digit; i++) {
+          zero += '0';
+      }
+      return (zero + num).slice(-digit);
+  }
   //TODO: 3.Add wallet connection
 
   //TODO: 4.Mint Function 
@@ -48,9 +82,19 @@ function App() {
         <div class='wrapper'>
           <div class='content'>
             <div>
-                <h1 class="thicker"> Horoscope NFT mint</h1>
-                <h1 class="thicker"> Total Supply is: {totalSupply}</h1>
+                <h1 class="thicker"> ____ NFT mint</h1>
+                <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
+                <div style={{ width:200, height:200}}>
+                  <CircularProgressbar value={mintInfo.totalSupply} maxValue={mintInfo.maxSupply} text={`${mintInfo.maxSupply - mintInfo.totalSupply}`} />;
+                </div>
             </div> 
+            <div>
+            {/* <div id="clock">
+                <p class="date">{ myTimer.date }</p>
+                <p class="time">{myTimer.time }</p>
+                <p class="text">DIGITAL CLOCK with Vue.js</p>
+            </div> */}
+            </div>
           </div>
         </div>
     </div>
