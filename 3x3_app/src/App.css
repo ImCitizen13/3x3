@@ -9,7 +9,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Euclid Circular B,sans-serif;
+  /* font-family: Euclid Circular B,sans-serif;
+   */
+ font-family: "Share Tech Mono", monospace;
+   
 }
 
 .App-logo {
@@ -21,6 +24,11 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+
+.mintStats { 
+  color: #ffffff;
 }
 
 .App-header {
@@ -62,19 +70,17 @@
 }
 .content {
   /* max-height: 800px; */
-  /* overflow: auto; */
+  /* overflow: auto; */ 
 }
 
 
 .thicker {
-  /* color: #685206;  */
-  font-family: 'Helvetica Neue', 
-  sans-serif;
   font-size: 34px;
   line-height: 34px; 
   margin: 0 0 11px; 
   text-align: justify; 
   text-justify: inter-word;
+  text-align: center;
 }
 
 

@@ -1,13 +1,13 @@
 /* Countdown timer */
 
-/* html,body {
+ html,body {
   height: 100%;
 }
 body {
-  background: #0f3854;
-  background: radial-gradient(ellipse at center,  #0a2e38  0%, #000000 70%);
+  background: #2a2d30;
+  background: radial-gradient(ellipse at center,  #2a2d30  0%, #000000 70%);
   background-size: 100%;
-} */
+}
 
 p.clock {
     margin: 0;
@@ -17,12 +17,11 @@ p.clock {
     font-family: 'Share Tech Mono', monospace;
     color: #070202;
     text-align: center;
-    position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
-    color: #2d505c;
-    text-shadow: 0 0 20px rgb(115, 172, 190),  0 0 20px rgba(10, 175, 230, 0);
+    // transform: translate(-50%, -50%);
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 20px rgb(255, 255, 255),  0 0 20px rgba(185, 190, 192, 0);
     .time {
         letter-spacing: 0.05em;
         font-size: 80px;
