@@ -110,7 +110,7 @@ function App() {
     <div className="App" > 
         <div class='wrapper'>
           <div class='content'>
-            <div class='mintStats itemPadding'>
+            <div class='mintStats .itemPadding'>
                 <h1 class="thicker"> ____ NFT mint</h1>
                 <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
                 {/* <div style={{ width:200, height:200}}>
