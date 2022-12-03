@@ -33,7 +33,8 @@ function App() {
   
   const initContract = async () => {
     const provider = new providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    // Random Signer 
+    const signer = provider.getSigner("0x7DB22E9CBF19E5E529B6B30EFB1D35DB63263950");
     // setNFTContract(new Contract(NFT_CONTRACT_ADDRESS, NFT, signer));
     const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT, signer);
     const tempTotalSupply = await contract.totalSupply();
