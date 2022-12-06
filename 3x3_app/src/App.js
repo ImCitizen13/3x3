@@ -118,6 +118,8 @@ function App() {
 
   //TODO: 3.Add wallet connection
 
+
+
   //TODO: 4.Mint Function 
 
   function IsMintingPaused(props) {
@@ -133,14 +135,15 @@ function App() {
         <div class='wrapper'>
           <div class='content'>
             <div class='mintStats .itemPadding'>
-                <h1 class="thicker"> ____ NFT mint</h1>
-                <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
-                <IsMintingPaused isMintingPaused={mintInfo.isMintingPaused} />
-                {/* <div style={{ width:200, height:200}}>
-                  <CircularProgressbar value={mintInfo.totalSupply} maxValue={mintInfo.maxSupply} text={`${mintInfo.maxSupply - mintInfo.totalSupply}`} />;
-                </div> */}
+              <h1 class="thicker"> ____ NFT mint</h1>
+              <CountDownTimer class="itemPadding" targetDate={mintTimes} />
+              <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
+              <IsMintingPaused isMintingPaused={mintInfo.isMintingPaused} />
+              {/* <div style={{ width:200, height:200}}>
+                <CircularProgressbar value={mintInfo.totalSupply} maxValue={mintInfo.maxSupply} text={`${mintInfo.maxSupply - mintInfo.totalSupply}`} />;
+              </div> */}
             </div> 
-            <CountDownTimer class="itemPadding" targetDate={mintTimes} />
+            
           </div>
         </div>
     </div>
