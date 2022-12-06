@@ -7,7 +7,8 @@ import  NFT  from  "./abis/3x3_ABI.json";
 import mintTime from "./timing.json";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-// import Confetti from "react-confetti";\
+// import Confetti from "react-confetti";
+// import useWindowSize from "react-use/lib/useWindowSize";
 const { DateTime } = require("luxon");
 
 const NFT_CONTRACT_ADDRESS = "0x4B533b07209334e18C73776bC2d4baDcE15BBfED";
@@ -134,11 +135,13 @@ function App() {
     <div className="App" > 
         <div class='wrapper'>
           <div class='content'>
-            <div class='mintStats .itemPadding'>
-              <h1 class="thicker"> ____ NFT mint</h1>
+            <div class='mintStats itemPadding'>
+              <h1 class="thicker itemPadding" > ____ NFT mint</h1>
+              <h1 class="thicker itemPadding"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
+              <IsMintingPaused isMintingPaused={mintInfo.isMintingPaused} class="itemPadding"/>
               <CountDownTimer class="itemPadding" targetDate={mintTimes} />
-              <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
-              <IsMintingPaused isMintingPaused={mintInfo.isMintingPaused} />
+              
+              
               {/* <div style={{ width:200, height:200}}>
                 <CircularProgressbar value={mintInfo.totalSupply} maxValue={mintInfo.maxSupply} text={`${mintInfo.maxSupply - mintInfo.totalSupply}`} />;
               </div> */}

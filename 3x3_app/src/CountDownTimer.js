@@ -1,5 +1,9 @@
 import React from 'react';
-import { useCountDown} from './useCountDown';
+import { useCountDown } from './useCountDown';
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
+import './App.css';
+import './App.scss';
 
 const ExpiredNotice = () => {
     return (
@@ -39,8 +43,15 @@ const CountDownTimer = ({ targetDate }) => {
 
     const formattedCountDown = formatCountDown(countDown);
 
+    const { width, height } = useWindowSize();
+
     if (countDown.days + countDown.hours + countDown.minutes + countDown.seconds <= 0) {
-        return <ExpiredNotice />;
+        return (
+            <div> 
+                <Confetti width={width} height={height} numberOfPieces={100} />
+                <h1 class="thicker"> Spaces are live, join now</h1>
+            </div>
+        ); //<ExpiredNotice />;
     } else {
         return (
             <div>
