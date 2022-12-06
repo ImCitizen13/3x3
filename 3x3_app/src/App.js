@@ -142,8 +142,8 @@ function App() {
               {/* <div style={{ width:200, height:200}}>
                 <CircularProgressbar value={mintInfo.totalSupply} maxValue={mintInfo.maxSupply} text={`${mintInfo.maxSupply - mintInfo.totalSupply}`} />;
               </div> */}
+              <a class="twitterLink" href="https://twitter.com/_________nft" target="_blank">https://twitter.com/_________nft </a>
             </div> 
-            
           </div>
         </div>
     </div>
