@@ -127,7 +127,7 @@ function App() {
       if (!props.isPaused) {
         return <h1 class="thicker"> Mint is paused </h1>;
       } else {
-        return <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
+        return <h1 class="thicker"> Mint is LIVE </h1>
       }
   }
 
