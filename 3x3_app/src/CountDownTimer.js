@@ -48,7 +48,7 @@ const CountDownTimer = ({ targetDate }) => {
     if (countDown.days + countDown.hours + countDown.minutes + countDown.seconds <= 0) {
         return (
             <div> 
-                <Confetti width={width} height={height} numberOfPieces={100} />
+                <Confetti width={width} height={height} numberOfPieces={100} colors={['#000000', '#ffffff']}/>
                 <h1 class="thicker"> Spaces are live, join now</h1>
             </div>
         ); //<ExpiredNotice />;
