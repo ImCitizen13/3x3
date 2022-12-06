@@ -10,7 +10,6 @@ import 'react-circular-progressbar/dist/styles.css';
 // import Confetti from "react-confetti";\
 const { DateTime } = require("luxon");
 
-
 const NFT_CONTRACT_ADDRESS = "0x4B533b07209334e18C73776bC2d4baDcE15BBfED";
 
 function App() {
@@ -24,10 +23,13 @@ function App() {
   });
   const [mintInfo, setMintInfo] = useState({
     totalSupply: "",
-    maxSupply: ""
+    maxSupply: "",
+    isMintingPaused: true
   });
-
-    
+  const [mintTimes, setMintTimes] = useState({
+    minutesToMint: 0,
+    dateAndTime: DateTime.now()
+  });
 
   // Initializing NFT Contract  
   
@@ -39,18 +41,28 @@ function App() {
     const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT, signer);
     const tempTotalSupply = await contract.totalSupply();
     const tempMaxSupply = await contract.maxSupply();
+    const tempIsMintingPaused = await contract.paused();
     // Store on use states
     setNFTContract(contract);
     setMintInfo({
       totalSupply: tempTotalSupply.toString(),
-      maxSupply: tempMaxSupply.toString()
+      maxSupply: tempMaxSupply.toString(),
+      isMintingPaused: tempIsMintingPaused
     });
     setMintTotalSupply(tempTotalSupply.toString());
   }
   
   useEffect(() => {
     initContract();
-
+    let tempMintTimes =  getMintDateFromJsonFile();
+    setMintTimes({
+      minutesToMint: tempMintTimes.minutesToMint,
+      dateAndTime: tempMintTimes.dateAndTime
+    });
+    console.count("rendered use effect");
+    return () => {
+      // Clean up function 
+    }  
   }, []);
 
   //TODO: 2.Make a countdown
@@ -62,6 +74,7 @@ function App() {
     let mintDate = mintTime.time;
     let minutesToMint = mintTime.minutesToMint;
     let timeInCST = getCSTMintDate(mintDate)
+    console.count("Got json Data");
     return { 'minutesToMint': minutesToMint,
              'dateAndTime': timeInCST
            };
@@ -101,26 +114,36 @@ function App() {
     return dateToReturn;
 	}
 
-  const  mintTimes = getMintDateFromJsonFile();
+  // const  mintTimes = getMintDateFromJsonFile();
 
   //TODO: 3.Add wallet connection
 
+
+
   //TODO: 4.Mint Function 
+
+  function IsMintingPaused(props) {
+      if (!props.isPaused) {
+        return <h1 class="thicker"> Mint is paused </h1>;
+      } else {
+        return <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
+      }
+  }
 
   return (
     <div className="App" > 
         <div class='wrapper'>
           <div class='content'>
             <div class='mintStats .itemPadding'>
-                <h1 class="thicker"> ____ NFT mint</h1>
-                <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
-                {/* <div style={{ width:200, height:200}}>
-                  <CircularProgressbar value={mintInfo.totalSupply} maxValue={mintInfo.maxSupply} text={`${mintInfo.maxSupply - mintInfo.totalSupply}`} />;
-                </div> */}
+              <h1 class="thicker"> ____ NFT mint</h1>
+              <CountDownTimer class="itemPadding" targetDate={mintTimes} />
+              <h1 class="thicker"> {mintInfo.totalSupply} / {mintInfo.maxSupply} </h1>
+              <IsMintingPaused isMintingPaused={mintInfo.isMintingPaused} />
+              {/* <div style={{ width:200, height:200}}>
+                <CircularProgressbar value={mintInfo.totalSupply} maxValue={mintInfo.maxSupply} text={`${mintInfo.maxSupply - mintInfo.totalSupply}`} />;
+              </div> */}
             </div> 
-
-            <CountDownTimer class="itemPadding" targetDate={mintTimes} />
-
+            
           </div>
         </div>
     </div>

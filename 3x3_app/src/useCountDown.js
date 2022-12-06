@@ -17,7 +17,7 @@ const useCountDown = (countDownDateAndDuration) => {
       const interval = setInterval(() => {
         setCountdown(distance)
       }, 1000);
-
+      // Clean up function for the use case 
       return () => clearInterval(interval);
     }, [countDownDate]);
 
